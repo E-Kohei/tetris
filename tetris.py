@@ -1,6 +1,6 @@
 from graphics import *
-from graphics_complements import *
-import time,random,winsound
+from graphics_helper import *
+import time,random
 
 
 ##functions#####################################################################
@@ -247,7 +247,6 @@ def graphic_button(win):
     turnbutton = draw_Circle(Point(300,245),25,win,Fill='blue')
     reversebutton = draw_Rectangle(Point(270,170),Point(330,210),win,Fill='red')
     settlebutton = draw_Rectangle(Point(290,280),Point(310,320),win,Fill='green')
-    quitbutton = draw_Rectangle(Point(345,5),Point(395,30),win)
     buttonList = (moverightbutton,moveleftbutton,turnbutton,reversebutton,settlebutton)
 
     # texts
@@ -261,6 +260,7 @@ def graphic_button(win):
     reversetext = write_Text(Point(300,200),"reverse",win,face='courier',size=10,color='white')
     settlevector = write_Text(Point(300,300),"↓",win,size=20,color='white')
     settletext = write_Text(Point(300,330),"settle",win,face='courier',size=10,color='white')
+    
     # pixels
     pixelList = []
     for i in range(31):
@@ -305,7 +305,7 @@ operate_with_key_text = write_Text(operate_with_key_button.getCenter(),"Key",win
 operate_with_button_button = draw_Rectangle(Point(250,150),Point(350,220),win,Fill='red')
 operate_with_button_text = write_Text(operate_with_button_button.getCenter(),"Button",win,face='courier',size=15,color='white')
 
-while True:   # wait for selecton
+while True:   # wait for selection
     click = win.getMouse()
     if isInside_rect(click,operate_with_key_button):
         starttext.undraw()
@@ -412,8 +412,6 @@ while get_toprow(pixelList) >= 100:
     else:
         while not isColored(pixelList[bottom1+15]) and not isColored(pixelList[bottom2+15]) and\
               not isColored(pixelList[bottom3+15]) and not isColored(pixelList[bottom4+15]):
-            (b1,b2,b3,b4,right,left,bottom1,bottom2,bottom3,bottom4) = \
-            movedown(b1,b2,b3,b4,right,left,bottom1,bottom2,bottom3,bottom4)
             for rep in range(5):
                 checkpt = win.checkMouse()
                 if checkpt != None:
@@ -451,8 +449,7 @@ while get_toprow(pixelList) >= 100:
             for row2 in range(row,0,-1):
                 for pixelnum in range(row2*15,row2*15+15):
                     pixelList[pixelnum].setFill(getFillColor(pixelList[pixelnum-15]))
-            winsound.Beep(600,100)
-            
+
 
 
 gameover = Text(Point(200,125),"Game  Over...")
